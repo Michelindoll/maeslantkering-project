@@ -1,0 +1,4 @@
+db = ''
+dbhost = ''
+dbuser = ''
+dbpass = ''
