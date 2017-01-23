@@ -1,11 +1,11 @@
 # Iets met functies
+# Iets met hoofdletters voor public objects
 
-def checkWaterLevel():
+def CheckWaterLevel():
     print("Not yet implemented")
 
-def openDoor():
+def OpenDoor():
     print("Not yet implemented")
 
-def closeDoor():
+def CloseDoor():
     print("Not yet implemented")
-
