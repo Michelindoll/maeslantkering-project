@@ -20,9 +20,10 @@ def requestSender():
     socket = context.socket(zmq.REQ)
     socket.RCVTIMEO = 2000
     socket.connect("tcp://localhost:5555")
-    socket.send(b"req")
-    while a == 0 or a == 1:
+    if a == 0 or a == 1:
         try:
+            socket.send(b"req")
+            time.sleep(0.1)
             socket.recv()
             a = 1
         except:
@@ -34,7 +35,7 @@ while a < 1:
     time.sleep(1)
 if a == 1:
     print("Secundaire modus wordt gestart")
-    while True:
+    while a == 1:
         requestSender()
         print("Poll")
         time.sleep(1)
