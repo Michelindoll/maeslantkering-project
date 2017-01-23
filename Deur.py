@@ -1,23 +1,27 @@
-import zmq, time
-
-def OpenDeur():
-    #Doe Deur Openen
-    return "Deur Openen"
+import time, zmq
 
 def SluitDeur():
-    #Do Deur Dicht
-    return "Deur Sluiten"
+    print("Deurtje Dicht")
+
+def OpenDeur():
+    print("Deurtje Open")
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind("tcp://*:5555")
+
 while True:
     message = socket.recv()
-    if message == 1:
-        SluitDeur()
-    elif message == 0:
-        OpenDeur()
+    print("Received request: %s" % message)
+    if message == b"1":
+        #SluitDeur()
+        time.sleep(1)
+        socket.send(b"Deur gaat sluiten")
+    elif message == b"0":
+        #OpenDeur()
+        time.sleep(1)
+        socket.send(b"Deur gaat open")
     else:
         pass
-    time.sleep(1)
-    socket.send(b"rep")
+
+

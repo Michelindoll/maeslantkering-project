@@ -28,6 +28,22 @@ def requestSender():
             a = 2
             context.term
 
+def DoorControl(Action):
+    if Action == 1:
+        message = b'1'
+    elif Action == 0:
+        message = b'0'
+    context = zmq.Context()
+    print("Kijk naar deur")
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5555")
+    print("Sending request …")
+    socket.send(message)
+    time.sleep(1)
+    message = socket.recv()
+    print(message.decode("ascii"))
+
+
 threading.Thread(target=requestSender).start()
 
 while a < 1:
