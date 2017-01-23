@@ -17,5 +17,7 @@ while True:
         SluitDeur()
     elif message == 0:
         OpenDeur()
+    else:
+        pass
     time.sleep(1)
     socket.send(b"rep")
