@@ -1,6 +1,4 @@
-import time
-import zmq
-import threading
+import time, zmq, threading
 
 a = 0
 
