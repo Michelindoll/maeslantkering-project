@@ -26,6 +26,7 @@ def requestSender():
             a = 1
         except:
             a = 2
+            context.term
 
 threading.Thread(target=requestSender).start()
 
