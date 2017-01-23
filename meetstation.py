@@ -6,6 +6,6 @@ def GetDataFromSensor():
     return SensorData
 
 WaterLevel = GetDataFromSensor()
-TimeStamp = int(time.time())
-db.WriteSensorDataToDB(WaterLevel, TimeStamp)
+Unixtime = int(time.time())
+db.WriteSensorDataToDB(WaterLevel, Unixtime)
 time.sleep(60)

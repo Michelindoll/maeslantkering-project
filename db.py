@@ -12,9 +12,9 @@ def SelectFromDB(field, table, where):
         result = cursor.fetchall()
         return result
 
-def WriteSensorDataToDB(WaterLevel, Timestamp):
+def WriteSensorDataToDB(WaterLevel, Unixtime):
     connection = createSQLConnection()
     with connection.cursor() as cursor:
-        sql = "INSERT INTO SensorData (WaterLevel, Time) VALUES ({},{})".format(WaterLevel, Timestamp)
+        sql = "INSERT INTO SensorData (WaterLevel, Unixtime) VALUES ({},{})".format(WaterLevel, Unixtime)
         cursor.execute(sql)
     connection.commit()
