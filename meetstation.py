@@ -21,11 +21,12 @@ def requestSender():
     socket.RCVTIMEO = 2000
     socket.connect("tcp://localhost:5555")
     socket.send(b"req")
-    try:
-        socket.recv()
-        a = 1
-    except:
-        a = 2
+    while a == 0 or a == 1:
+        try:
+            socket.recv()
+            a = 1
+        except:
+            a = 2
 
 threading.Thread(target=requestSender).start()
 
@@ -33,8 +34,14 @@ while a < 1:
     time.sleep(1)
 if a == 1:
     print("Secundaire modus wordt gestart")
-elif a == 2:
+    while True:
+        requestSender()
+        print("Poll")
+        time.sleep(1)
+if a == 2:
     print("Primaire modus wordt gestart")
     threading.Thread(target=connectionHandler()).start()
 else:
     print("Het programma is niet goed gestart")
+
+print("idi nahui")
