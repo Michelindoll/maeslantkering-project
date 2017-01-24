@@ -10,4 +10,4 @@ while True:
     db.WriteSensorDataToDB(waterstand,tijd)
     print("Posted data to DB")
     print("Sleeping")
-    time.sleep(30)
+    time.sleep(600)
