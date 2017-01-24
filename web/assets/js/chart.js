@@ -10661,7 +10661,7 @@ module.exports = function(Chart) {
 			if (me.isHorizontal()) {
 				innerDimension = me.width - (me.paddingLeft + me.paddingRight);
 				value = me.start * Math.pow(10, (pixel - me.left - me.paddingLeft) * range / innerDimension);
-			} else {  
+			} else {
 				innerDimension = me.height - (me.paddingTop + me.paddingBottom);
 				value = Math.pow(10, (me.bottom - me.paddingBottom - pixel) * range / innerDimension) / me.start;
 			}
