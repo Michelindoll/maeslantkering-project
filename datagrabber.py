@@ -1,4 +1,4 @@
-import db,api, time
+import db,api, time, datetime
 
 while True:
     print("Getting data")
@@ -9,5 +9,6 @@ while True:
     print("Posting data to DB")
     db.WriteSensorDataToDB(waterstand,tijd)
     print("Posted data to DB")
+    print(str(datetime.datetime.now()))
     print("Sleeping")
     time.sleep(1200)

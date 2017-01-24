@@ -1,5 +1,6 @@
-import tornado.web, tornado.ioloop, os
+import tornado.web, tornado.ioloop, os, datetime, db
 from auth import cookieSecret
+from pytz import timezone
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -44,20 +45,22 @@ class DocsHandler(MainHandler):
 class WaterstandHandler(MainHandler):
     def get(self):
 
-        dummyData = [{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50}]
-        var1 = dummyData[0]['waterstand']
-        var2 = dummyData[1]['waterstand']
-        var3 = dummyData[2]['waterstand']
-        var4 = dummyData[3]['waterstand']
-        var5 = dummyData[4]['waterstand']
-        var6 = dummyData[5]['waterstand']
-        var7 = dummyData[6]['waterstand']
-        var8 = dummyData[7]['waterstand']
-        var9 = dummyData[8]['waterstand']
-        var10 = dummyData[9]['waterstand']
-        var11 = dummyData[10]['waterstand']
-        var12 = dummyData[11]['waterstand']
-        self.render("web/fluid/index.html",var1 = var1, var2 = var2, var3 = var3, var4 = var4, var5 = var5, var6 = var6, var7 = var7, var8 = var8, var9 = var9, var10 = var10, var11 = var11, var12 = var12)
+        dummyData = db.SelectSensorDataFromDB()
+        waterstandlist = []
+        string = ''
+        for item in dummyData:
+            waterstandlist.append(item['waterstand'])
+        for item in waterstandlist:
+            string += str(item) + ','
+        waterstandstring = string.rstrip(',')
+        labellist = []
+        string = ''
+        for item in dummyData:
+            labellist.append(datetime.datetime.fromtimestamp(int(item['tijd'])).strftime('%H:%M %d-%m-%Y '))
+        for item in labellist:
+            string += '\''+str(item) + '\','
+        labelstring = string.rstrip(',')
+        self.render("web/fluid/index.html",waterstandstring = waterstandstring, labelstring = labelstring)
 
 class OrderHistoryHandler(MainHandler):
     def get(self):
