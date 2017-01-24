@@ -8,17 +8,17 @@ def OpenDeur():
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://*:5555")
+socket.bind("tcp://*:5556")
 
 while True:
     message = socket.recv()
     print("Received request: %s" % message)
     if message == b"1":
-        #SluitDeur()
+        SluitDeur()
         time.sleep(1)
         socket.send(b"Deur gaat sluiten")
     elif message == b"0":
-        #OpenDeur()
+        OpenDeur()
         time.sleep(1)
         socket.send(b"Deur gaat open")
     else:
