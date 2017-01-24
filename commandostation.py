@@ -41,7 +41,7 @@ def DoorControl(Action):
     context = zmq.Context()
     print("Kijk naar deur")
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
+    socket.connect("tcp://localhost:5556")
     print("Sending request …")
     socket.send(message)
     time.sleep(1)
@@ -62,6 +62,8 @@ if a == 1:
 if a == 2:
     print("Primaire modus wordt gestart")
     threading.Thread(target=connectionHandler()).start()
+    time.sleep(5)
+    DoorControl(1)
 else:
     print("Het programma is niet goed gestart")
 

@@ -1,4 +1,5 @@
 import time, zmq
+import nlalert
 
 def SluitDeur():
     print("Deurtje Dicht")
@@ -17,6 +18,7 @@ while True:
         SluitDeur()
         time.sleep(1)
         socket.send(b"Deur gaat sluiten")
+        nlalert.sendAlert()
     elif message == b"0":
         OpenDeur()
         time.sleep(1)
