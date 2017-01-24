@@ -41,7 +41,7 @@ class DocsHandler(MainHandler):
     def get(self):
         self.render("web/docs/index.html")
 
-class FluidHandler(MainHandler):
+class WaterstandHandler(MainHandler):
     def get(self):
 
         dummyData = [{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50},{'waterstand':50}]
@@ -72,7 +72,7 @@ class Application(tornado.web.Application):
             (r"/light", LightHandler),
             (r"/iconnav", IconnavHandler),
             (r"/docs", DocsHandler),
-            (r"/fluid", FluidHandler),
+            (r"/waterstand", WaterstandHandler),
             (r"/orderhistory", OrderHistoryHandler),
 
         ]
