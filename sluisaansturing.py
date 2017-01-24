@@ -17,12 +17,12 @@ while True:
     if message == b"1":
         SluitDeur()
         time.sleep(1)
-        socket.send(b"Deur gaat sluiten")
+        socket.send(b"Commando ontvangen: Sluis gaat sluiten")
         nlalert.sendAlert()
     elif message == b"0":
         OpenDeur()
         time.sleep(1)
-        socket.send(b"Deur gaat open")
+        socket.send(b"Commando ontvangen: Sluis gaat open")
     else:
         pass
 
