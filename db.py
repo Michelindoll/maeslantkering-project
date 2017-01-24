@@ -15,6 +15,6 @@ def SelectFromDB(field, table, where):
 def WriteSensorDataToDB(WaterLevel, Unixtime):
     connection = createSQLConnection()
     with connection.cursor() as cursor:
-        sql = "INSERT INTO SensorData (WaterLevel, Unixtime) VALUES ({},{})".format(WaterLevel, Unixtime)
+        sql = "INSERT INTO sensordata (waterstand, tijd) VALUES ({},{})".format(WaterLevel, Unixtime)
         cursor.execute(sql)
     connection.commit()

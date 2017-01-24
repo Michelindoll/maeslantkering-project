@@ -15,6 +15,3 @@ def GetNAPMaeslantkering():
             measlantkeringwaterstand = item
             break
     return measlantkeringwaterstand
-
-measlantkeringwaterstand = GetNAPMaeslantkering()
-print(measlantkeringwaterstand['locatienaam']+' '+measlantkeringwaterstand['waarde']+'cm NAP')
