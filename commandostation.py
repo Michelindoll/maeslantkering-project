@@ -1,4 +1,4 @@
-import time, zmq, threading
+import time, zmq, threading, db
 
 mode = 0
 
@@ -52,6 +52,7 @@ def DoorControl(Action):
 threading.Thread(target=heartbeatSender).start()
 
 #Gun het programma een moment om te communiceren met het andere commandostation
+print('Verbinding controleren...')
 while mode < 1:
     time.sleep(1)
 
@@ -63,16 +64,30 @@ if mode == 1:
     while mode == 1:
         threading.Thread(target=heartbeatSender).start()
         print("Heartbeat verzonden.")
-        time.sleep(1)
+        time.sleep(10)
 
 #Start de primaire modus. Hier wordt de beslissing genomen om de kering te sluiten als er aan de criteria voldaan wordt.
 #Tevens start de heartbeatHandler, die reacties geeft op de reacties van het secundaire controlestation
-#todo: Oppakken van de data en een beslissing maken.
 if mode == 2:
     print("Primaire modus wordt gestart")
     threading.Thread(target=heartbeatHandler).start()
-    #Onderliggende is alleen om te testen.
-    time.sleep(5)
-    print("Maximale waterniveau overschreden, Sluiting wordt in gang gezet.")
-    threading.Thread(DoorControl(1)).start()
+    while True:
+        while True:
+            meting = db.SelectLastReadingFromDB()
+            print("De huidige waterstand is %s cm onder of boven NAP" % meting[0]['waterstand'])
+            if meting[0]['waterstand'] > 300:
+                print('Waterstand overschreidt maximum, sluiting wordt in gang gezet.')
+                threading.Thread(DoorControl(1)).start()
+                break
+            time.sleep(60)
+        while True:
+            meting = db.SelectLastReadingFromDB()
+            print("De huidige waterstand is %s cm onder of boven NAP" % meting[0]['waterstand'])
+            if meting[0]['waterstand'] < 250:
+                print('Waterstand is gezakt tot een veilig punt, opening wordt in gang gezet.')
+                threading.Thread(DoorControl(0)).start()
+                break
+            time.sleep(60)
+print("End")
+
 
