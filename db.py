@@ -14,7 +14,7 @@ def WriteSensorDataToDB(WaterLevel, Unixtime):
 def SelectSensorDataFromDB():
     connection = createSQLConnection()
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        sql = "SELECT waterstand, tijd FROM sensordata"
+        sql = "SELECT waterstand, tijd FROM sensordata LIMIT 12"
         cursor.execute(sql)
         result = cursor.fetchall()
         return result
