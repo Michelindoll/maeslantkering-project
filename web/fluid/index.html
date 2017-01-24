@@ -13,7 +13,7 @@
 
     <title>
       
-        Fluid &middot; 
+        Waterstand
       
     </title>
 
@@ -49,36 +49,16 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand navbar-brand-emphasized" href="/">
-          <span class="icon icon-leaf navbar-brand-icon"></span>
-          Dashboard
+          <span class="icon icon-air navbar-brand-icon"></span>
+          Maeslantkering
         </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li >
-            <a href="/orderhistory">Order History</a>
-          </li>
           <li class="active">
             <a href="/waterstand">Waterstand</a>
           </li>
-          <li >
-            <a href="/iconnav">Icon nav</a>
-          </li>
-          <li >
-            <a href="/docs">
-              Docs
-            </a>
-          </li>
-          <li >
-            <a href="/lights">Light UI</a>
-          </li>
         </ul>
-        <form class="form-inline navbar-form navbar-right">
-          <div class="input-with-icon">
-            <input class="form-control" type="text" placeholder="Search...">
-            <span class="icon icon-magnifying-glass"></span>
-          </div>
-        </form>
       </div>
     </div>
   </nav>
@@ -86,32 +66,21 @@
   <div class="container-fluid container-fluid-spacious">
     <div class="dashhead m-t-md">
   <div class="dashhead-titles">
-    <h6 class="dashhead-subtitle">Dashboards</h6>
+    <h6 class="dashhead-subtitle">Maeslantkering</h6>
     <h2 class="dashhead-title">Waterstand</h2>
-  </div>
-
-  <div class="btn-toolbar dashhead-toolbar">
-    <!--<div class="btn-toolbar-item input-with-icon">
-      <input type="text" value="01/01/15 - 01/08/15" class="form-control" data-provide="datepicker">
-      <span class="icon icon-calendar"></span>
-    </div>-->
   </div>
 </div>
   <div class="tab-content">
-
-  <div class="hr-divider m-t m-b-md">
-    <h3 class="hr-divider-content hr-divider-heading">Waterstand</h3>
-  </div>
-
+    <hr class="m-t">
   <div>
-      <canvas id="waterstand" width="1400" height="600"></canvas>
+      <canvas id="waterstand" width="1200" height="600"></canvas>
       <script>
           var ctx = document.getElementById("waterstand");
           var data = {
             labels: [{{ labelstring }}],
             datasets: [
             {
-            label: "Waterstand",
+            label: "Waterhoogte T.O.V. NAP",
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -120,17 +89,17 @@
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(54, 162, 235, 1)',
+            pointBorderColor: '#000',
             pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
+            pointBorderWidth: 2,
             pointHoverRadius: 5,
             pointHoverBackgroundColor: 'rgba(54, 162, 235, 1)',
             pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointRadius: 3,
             pointHitRadius: 10,
             data: [{{ waterstandstring }}],
-            spanGaps: false,
+            spanGaps: true,
             }
             ]
           };
@@ -138,12 +107,22 @@
             type: 'line',
             data: data,
              options: {
-                responsive: false,
-                maintainAspectRatio: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
+                 responsive: false,
+                 maintainAspectRatio: true,
+                 title: {
+                     display: true,
+                     position: 'left',
+                     text: 'Waterstand Maeslantkering'
+                 },
+                 legend: {
+                     display: true,
+                     position: 'bottom'
+
+                 },
+                 scales: {
+                     yAxes: [{
+                         ticks: {
+                             beginAtZero:false
                         }
                     }]
                 }
@@ -153,203 +132,6 @@
       </script>
   </div>
 </div>
-
-<!-- <div class="hr-divider m-t-lg m-b-md">
-  <h3 class="hr-divider-content hr-divider-heading">Other</h3>
-</div>
-
-<div class="row">
-  <div class="col-md-4 m-b">
-    <div class="list-group">
-      <h4 class="list-group-header">
-        Countries
-      </h4>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 62.4%;"></span>
-          <span class="pull-right text-muted">62.4%</span>
-          United States
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 15.0%;"></span>
-          <span class="pull-right text-muted">15.0%</span>
-          India
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 5.0%;"></span>
-          <span class="pull-right text-muted">5.0%</span>
-          United Kingdom
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 5.0%;"></span>
-          <span class="pull-right text-muted">5.0%</span>
-          Canada
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 4.5%;"></span>
-          <span class="pull-right text-muted">4.5%</span>
-          Russia
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 2.3%;"></span>
-          <span class="pull-right text-muted">2.3%</span>
-          Mexico
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 1.7%;"></span>
-          <span class="pull-right text-muted">1.7%</span>
-          Spain
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 1.5%;"></span>
-          <span class="pull-right text-muted">1.5%</span>
-          France
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 1.4%;"></span>
-          <span class="pull-right text-muted">1.4%</span>
-          South Africa
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="list-group-progress" style="width: 1.2%;"></span>
-          <span class="pull-right text-muted">1.2%</span>
-          Japan
-        </a>
-      
-    </div>
-    <a href="#" class="btn btn-primary-outline">All countries</a>
-  </div>
-  <div class="col-md-4 m-b">
-    <div class="list-group">
-      <h4 class="list-group-header">
-        Most visited pages
-      </h4>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">3,929,481</span>
-          / (Logged out)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">1,143,393</span>
-          / (Logged in)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">938,287</span>
-          /tour
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">749,393</span>
-          /features/something
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">695,912</span>
-          /features/another-thing
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">501,938</span>
-          /users/username
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">392,842</span>
-          /page-title
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">298,183</span>
-          /some/page-slug
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">193,129</span>
-          /another/directory/and/page-title
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">93,382</span>
-          /one-more/page/directory/file-name
-        </a>
-      
-    </div>
-    <a href="#" class="btn btn-primary-outline">View all pages</a>
-  </div>
-  <div class="col-md-4 m-b">
-    <div class="list-group">
-      <h4 class="list-group-header">
-        Devices and resolutions
-      </h4>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">3,929,481</span>
-          Desktop (1920x1080)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">1,143,393</span>
-          Desktop (1366x768)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">938,287</span>
-          Desktop (1440x900)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">749,393</span>
-          Desktop (1280x800)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">695,912</span>
-          Tablet (1024x768)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">501,938</span>
-          Tablet (768x1024)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">392,842</span>
-          Phone (320x480)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">298,183</span>
-          Phone (720x450)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">193,129</span>
-          Desktop (2560x1080)
-        </a>
-      
-        <a class="list-group-item" href="#">
-          <span class="pull-right text-muted">93,382</span>
-          Desktop (2560x1600)
-        </a>
-      
-    </div>
-    <a href="#" class="btn btn-primary-outline">View all devices</a>
-  </div>
-</div>
-
-  </div> -->
-
     <script src="{{ static_url('web/assets/js/jquery.min.js') }}"></script>
     <script src="{{ static_url('web/assets/js/tablesorter.min.js') }}"></script>
     <script src="{{ static_url('web/assets/js/toolkit.js') }}"></script>

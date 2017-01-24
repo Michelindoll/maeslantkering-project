@@ -1,5 +1,7 @@
 import db,api, time, datetime
 
+waterstand = 0
+tijd = 0
 while True:
     print("Getting data")
     maeslantkeringdata = api.GetNAPMaeslantkering()

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>
+
+        {{ title }}
+
+    </title>
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+    <link href="{{ static_url ('web/assets/css/toolkit-inverse.css')}}" rel="stylesheet">
+
+
+    <link href="{{ static_url ('web/assets/css/application.css')}}" rel="stylesheet">
+
+    <style>
+        /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+        /* this chunk of css is not part of the toolkit :) */
+        body {
+            width: 1px;
+            min-width: 100%;
+            *width: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-header">
+                    <button class="nav-toggler nav-toggler-sm sidebar-toggler" type="button" data-toggle="collapse"
+                            data-target="#nav-toggleable-sm">
+                        <span class="sr-only">Toggle nav</span>
+                    </button>
+                    <a class="sidebar-brand img-responsive" href="/">
+                        <span class="icon icon-air sidebar-brand-icon"></span>
+                    </a>
+                </div>
+
+                <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="nav-header">Maeslantkering</li>
+                        <li class="active">
+                            <a href="/">Overview</a>
+                        </li>
+                        <li>
+                            <a href="/waterstand">Waterstand</a>
+                        </li>
+                    </ul>
+                    <hr class="visible-xs m-t">
+                </div>
+            </nav>
+        </div>
+        <div class="col-sm-9 content">
+            <div class="dashhead">
+                <div class="dashhead-titles">
+                    <h6 class="dashhead-subtitle">Maeslantkering</h6>
+                    <h2 class="dashhead-title">Login</h2>
+                </div>
+            </div>
+
+            <hr class="m-t">
+
+            <div class="row text-center m-t-lg">
+                <form action="/login" method="post">
+                    <label>Naam:</label>
+                    <input type="text" name="name" class="form-control"/> <br/>
+                    <label>Wachtwoord:</label>
+                    <input type="password" name="password" class="form-control"/><br/>
+                    <input type="submit" class="btn btn-primary-outline" value="Login">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="{{ static_url('web/assets/js/jquery.min.js') }}"></script>
+<script src="{{ static_url('web/assets/js/chart.js') }}"></script>
+<script src="{{ static_url('web/assets/js/tablesorter.min.js') }}"></script>
+<script src="{{ static_url('web/assets/js/toolkit.js') }}"></script>
+<script src="{{ static_url('web/assets/js/application.js') }}"></script>
+<script>
+    // execute/clear BS loaders for docs
+    $(function () {
+        while (window.BS && window.BS.loader && window.BS.loader.length) {
+            (window.BS.loader.pop())()
+        }
+    })
+</script>
+</body>
+</html>
+

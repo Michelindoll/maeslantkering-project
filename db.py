@@ -1,4 +1,4 @@
-import pymysql
+import pymysql, aes
 from auth import dbpass, dbuser, dbhost, db
 
 def createSQLConnection():
@@ -26,3 +26,13 @@ def SelectLastReadingFromDB():
         cursor.execute(sql)
         result = cursor.fetchall()
         return result
+
+def getLoginCredentails():
+    connection = createSQLConnection()
+    with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+        sql = "SELECT username, password FROM user"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        password = aes.decryptData(eval(result[0]['password']))
+        username = aes.decryptData(eval(result[0]['username']))
+        return username, password
