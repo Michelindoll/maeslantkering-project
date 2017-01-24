@@ -5,6 +5,6 @@ def sendAlert():
     updater = Updater(token=telegramToken)
     dispatcher = updater.dispatcher
     bot = dispatcher.bot
-    bericht = "NL-ALERT: De Maeslantkering zal sluiten wegens hoog water."
+    bericht = "NL-ALERT: De Maeslantkering zal sluiten wegens hoog water. Send nudes."
     for ontvanger in ontvangers:
         bot.sendMessage(chat_id=ontvanger, text=bericht)
