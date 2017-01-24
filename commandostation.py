@@ -34,6 +34,7 @@ def requestSender():
          #   context.term()
 
 def DoorControl(Action):
+    print(5)
     if Action == 1:
         message = b'1'
     elif Action == 0:
@@ -61,9 +62,10 @@ if a == 1:
         time.sleep(1)
 if a == 2:
     print("Primaire modus wordt gestart")
-    threading.Thread(target=connectionHandler()).start()
+    threading.Thread(target=connectionHandler).start()
+    print("4")
     time.sleep(5)
-    DoorControl(1)
+    threading.Thread(DoorControl(1)).start()
 else:
     print("Het programma is niet goed gestart")
 
