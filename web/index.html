@@ -13,16 +13,16 @@
 
     <title>
       
-        Overview &middot; 
+        {{ title }}
       
     </title>
 
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     
-      <link href="assets/css/toolkit-inverse.css" rel="stylesheet">
+      <link href="{{ static_url ('web/assets/css/toolkit-inverse.css')}}" rel="stylesheet">
     
     
-    <link href="assets/css/application.css" rel="stylesheet">
+    <link href="{{ static_url ('web/assets/css/application.css')}}" rel="stylesheet">
 
     <style>
       /* note: this is a hack for ios iframe for bootstrap themes shopify page */
@@ -428,11 +428,11 @@
 </div>
 
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/chart.js"></script>
-    <script src="assets/js/tablesorter.min.js"></script>
-    <script src="assets/js/toolkit.js"></script>
-    <script src="assets/js/application.js"></script>
+    <script src="{{ static_url('web/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ static_url('web/assets/js/chart.js') }}"></script>
+    <script src="{{ static_url('web/assets/js/tablesorter.min.js') }}"></script>
+    <script src="{{ static_url('web/assets/js/toolkit.js') }}"></script>
+    <script src="{{ static_url('web/assets/js/application.js') }}"></script>
     <script>
       // execute/clear BS loaders for docs
       $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})

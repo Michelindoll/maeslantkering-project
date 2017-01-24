@@ -1,4 +1,5 @@
 import tornado.web, tornado.ioloop, os
+from auth import cookieSecret
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -6,7 +7,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("web/main.html", title="Parkeer Garage")
+        self.render("web/index.html", title="Dashboard Waterdeur")
 
 
 class LoginHandler(BaseHandler):
@@ -14,7 +15,7 @@ class LoginHandler(BaseHandler):
         self.render("web/login.html", title="Login")
 
     def post(self):
-        logindata = database.getLoginCredentails()
+        logindata = ['Naam','Wachtwoord']
         username = logindata[0]
         password = logindata[1]
         if self.get_argument("name") == username and self.get_argument("password") == password:
@@ -26,23 +27,14 @@ class LoginHandler(BaseHandler):
 class BeheerHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        data = database.readLatestPlate()
-        tijd = data['tijd']
-        kenteken = data['kenteken']
-        self.render("web/beheer.html", title="Beheer", plate=kenteken, tijd=tijd)
+        self.render("web/beheer.html")
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers =[
             (r"/", MainHandler),
-            (r"/weekreport", ReportWeekHandler),
-            (r"/dagrapport", ReportDayHandler),
-            (r"/controlein", ControleInHandler),
-            (r"/controleuit", ControleUitHandler),
             (r"/login", LoginHandler),
             (r"/beheer", BeheerHandler),
-            (r"/form", FormHandler),
-            (r"/formsend", FormSendHandler)
         ]
         settings = {
             "debug": True,
