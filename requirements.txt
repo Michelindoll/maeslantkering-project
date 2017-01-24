@@ -1,3 +1,4 @@
 pymysql==0.7.9
 zmq==0.0.0
 tornado==4.4.2
+python-telegram-bot==5.3.0
