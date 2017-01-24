@@ -29,12 +29,38 @@ class BeheerHandler(BaseHandler):
     def get(self):
         self.render("web/beheer.html")
 
+class LightHandler(MainHandler):
+    def get(self):
+        self.render("web/light/index.html")
+
+class IconnavHandler(MainHandler):
+    def get(self):
+        self.render("web/icon-nav/index.html")
+
+class DocsHandler(MainHandler):
+    def get(self):
+        self.render("web/docs/index.html")
+
+class FluidHandler(MainHandler):
+    def get(self):
+        self.render("web/fluid/index.html")
+
+class OrderHistoryHandler(MainHandler):
+    def get(self):
+        self.render("web/order-history/index.html")
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers =[
             (r"/", MainHandler),
             (r"/login", LoginHandler),
             (r"/beheer", BeheerHandler),
+            (r"/light", LightHandler),
+            (r"/iconnav", IconnavHandler),
+            (r"/docs", DocsHandler),
+            (r"/fluid", FluidHandler),
+            (r"/orderhistory", OrderHistoryHandler),
+
         ]
         settings = {
             "debug": True,
