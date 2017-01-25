@@ -24,4 +24,4 @@ while True:
         print("Api call failed")
     print(str(datetime.datetime.now()))
     print("Sleeping")
-    time.sleep(1200)
+    time.sleep(300)
