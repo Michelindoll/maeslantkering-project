@@ -1,6 +1,24 @@
 import tornado.web, tornado.ioloop, os, datetime, db
 from auth import cookieSecret
 from pytz import timezone
+import zmq
+import time
+
+def DoorControl(Action):
+    #Verstuurt de actie naar de sluis
+    if Action == 1:
+        message = b'1'
+    elif Action == 0:
+        message = b'0'
+    context = zmq.Context()
+    print("Verbinden met sluisaansturing...")
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5556")
+    print("Verzenden van verzoek...")
+    socket.send(message)
+    time.sleep(1)
+    message = socket.recv()
+    print(message.decode("ascii"))
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -53,7 +71,14 @@ class WaterstandHandler(BaseHandler):
 
 class ActionHandler(tornado.web.RequestHandler):
     def get(self):
-        print("button click")
+        print("Noodsluiting")
+        DoorControl(1)
+        self.render("web/fluid/action.html")
+
+class ActionHandler2(tornado.web.RequestHandler):
+    def get(self):
+        print("Noodsluiting")
+        DoorControl(0)
         self.render("web/fluid/action.html")
 
 class Application(tornado.web.Application):
@@ -64,6 +89,7 @@ class Application(tornado.web.Application):
             (r"/docs", DocsHandler),
             (r"/waterstand", WaterstandHandler),
             (r"/action-url", ActionHandler),
+            (r"/action2-url", ActionHandler2)
         ]
         settings = {
             "debug": True,
