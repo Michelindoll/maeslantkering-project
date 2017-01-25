@@ -70,6 +70,7 @@ class Application(tornado.web.Application):
             "static_path": os.path.join(os.path.dirname(__file__), ""),
             "cookie_secret": cookieSecret,
             "login_url": "/login",
+            "xsrf_cookies": True,
         }
         tornado.web.Application.__init__(self, handlers, **settings)
 
