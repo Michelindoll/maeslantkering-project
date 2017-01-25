@@ -51,6 +51,11 @@ class WaterstandHandler(BaseHandler):
         labelstring = string.rstrip(',')
         self.render("web/fluid/index.html",waterstandstring = waterstandstring, labelstring = labelstring)
 
+class ActionHandler(tornado.web.RequestHandler):
+    def get(self):
+        print("button click")
+        self.render("web/fluid/action.html")
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers =[
@@ -58,7 +63,7 @@ class Application(tornado.web.Application):
             (r"/login", LoginHandler),
             (r"/docs", DocsHandler),
             (r"/waterstand", WaterstandHandler),
-
+            (r"/action-url", ActionHandler),
         ]
         settings = {
             "debug": True,

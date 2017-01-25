@@ -33,6 +33,7 @@ def heartbeatSender():
             context.term()
 
 def DoorControl(Action):
+    #Verstuurt de actie naar de sluis
     if Action == 1:
         message = b'1'
     elif Action == 0:
@@ -74,16 +75,16 @@ if mode == 2:
     while True:
         while True:
             meting = db.SelectLastReadingFromDB()
-            print("De huidige waterstand is %s cm onder of boven NAP" % meting[0]['waterstand'])
-            if meting[0]['waterstand'] > 300:
+            print("De huidige waterstand is %s cm onder of boven NAP" % meting)
+            if meting> 300:
                 print('Waterstand overschreidt maximum, sluiting wordt in gang gezet.')
                 threading.Thread(DoorControl(1)).start()
                 break
             time.sleep(60)
         while True:
             meting = db.SelectLastReadingFromDB()
-            print("De huidige waterstand is %s cm onder of boven NAP" % meting[0]['waterstand'])
-            if meting[0]['waterstand'] < 250:
+            print("De huidige waterstand is %s cm onder of boven NAP" % meting)
+            if meting < 250:
                 print('Waterstand is gezakt tot een veilig punt, opening wordt in gang gezet.')
                 threading.Thread(DoorControl(0)).start()
                 break

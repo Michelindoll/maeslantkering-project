@@ -131,6 +131,20 @@
 
       </script>
   </div>
+    <button id="btn" type="button" class="btn btn-lg btn-danger-outline">Noodsluiting Kering</button><br><br>
+    <button type="button" class="btn btn-lg btn-warning-outline">Heropen Kering </button>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+        $("#btn").click(function () {
+            $.ajax({
+                type: 'get',
+                url: "/action-url",
+                success: function (data) {
+                    alert("Send Nudes")
+                }
+            });
+        });
+  </script>
 </div>
     <script src="{{ static_url('web/assets/js/jquery.min.js') }}"></script>
     <script src="{{ static_url('web/assets/js/tablesorter.min.js') }}"></script>
