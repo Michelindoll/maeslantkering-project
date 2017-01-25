@@ -22,10 +22,12 @@ def SelectSensorDataFromDB():
 def SelectLastReadingFromDB():
     connection = createSQLConnection()
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        sql = "SELECT waterstand AS waterstand FROM sensordata ORDER BY tijd DESC LIMIT 1"
+        sql = "SELECT waterstand, tijd FROM sensordata ORDER BY tijd DESC LIMIT 1"
         cursor.execute(sql)
         result = cursor.fetchall()
-        return result
+        waterstand = result[0]['waterstand']
+        tijd = result[0]['tijd']
+        return waterstand, tijd
 
 def getLoginCredentails():
     connection = createSQLConnection()
