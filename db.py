@@ -4,17 +4,17 @@ from auth import dbpass, dbuser, dbhost, db
 def createSQLConnection():
     return pymysql.connect(host=dbhost, user=dbuser, password=dbpass, db=db)
 
-def WriteSensorDataToDB(WaterLevel, Unixtime):
+def WriteSensorDataToDB(WaterLevel, Unixtime, Location):
     connection = createSQLConnection()
     with connection.cursor() as cursor:
         sql = "INSERT INTO sensordata (waterstand, tijd) VALUES ({},{})".format(WaterLevel, Unixtime)
         cursor.execute(sql)
     connection.commit()
 
-def SelectSensorDataFromDB():
+def SelectSensorDataFromDB(Location):
     connection = createSQLConnection()
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        sql = "SELECT waterstand, tijd FROM (SELECT * FROM sensordata ORDER BY tijd DESC LIMIT 35) T1 ORDER BY tijd"
+        sql = "SELECT waterstand, tijd FROM (SELECT * FROM sensordata WHERE locatie = '{}' ORDER BY tijd DESC LIMIT 35) T1 ORDER BY tijd".format(Location)
         cursor.execute(sql)
         result = cursor.fetchall()
         return result
@@ -38,3 +38,4 @@ def getLoginCredentails():
         password = aes.decryptData(eval(result[0]['password']))
         username = aes.decryptData(eval(result[0]['username']))
         return username, password
+
