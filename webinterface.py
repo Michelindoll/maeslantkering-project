@@ -1,8 +1,31 @@
-import tornado.web, tornado.ioloop, os, datetime, db
+import tornado.web, tornado.ioloop, os, datetime, db, zmq, time
 from auth import cookieSecret
-from pytz import timezone
-import zmq
-import time
+
+def GetWaterstandString(data):
+    waterstandlist = []
+    string = ''
+    for item in data:
+        waterstandlist.append(item['waterstand'])
+    for item in waterstandlist:
+        string += str(item) + ','
+    waterstandstring = string.rstrip(',')
+    return waterstandstring
+
+def GetLabelString(data):
+    labellist = []
+    string = ''
+    for item in data:
+        labellist.append(datetime.datetime.fromtimestamp(int(item['tijd'])).strftime('%H:%M %d-%m-%Y '))
+    for item in labellist:
+        string += '\'' + str(item) + '\','
+    labelstring = string.rstrip(',')
+    return labelstring
+
+def GetGraphData(locatie):
+    data = db.SelectSensorDataFromDB(locatie)
+    waterstand = GetWaterstandString(data)
+    labels = GetLabelString(data)
+    return waterstand, labels
 
 def DoorControl(Action):
     #Verstuurt de actie naar de sluis
@@ -52,22 +75,10 @@ class WaterstandHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
 
-        dummyData = db.SelectSensorDataFromDB('Maeslantkering zeezijde N')
-        waterstandlist = []
-        string = ''
-        for item in dummyData:
-            waterstandlist.append(item['waterstand'])
-        for item in waterstandlist:
-            string += str(item) + ','
-        waterstandstring = string.rstrip(',')
-        labellist = []
-        string = ''
-        for item in dummyData:
-            labellist.append(datetime.datetime.fromtimestamp(int(item['tijd'])).strftime('%H:%M %d-%m-%Y '))
-        for item in labellist:
-            string += '\''+str(item) + '\','
-        labelstring = string.rstrip(',')
-        self.render("web/fluid/index.html",waterstandstring = waterstandstring, labelstring = labelstring)
+        maeslant = GetGraphData('Maeslantkering zeezijde N')
+        rotterdam = GetGraphData('Rotterdam')
+        dordrecht = GetGraphData('Dordrecht')
+        self.render("web/fluid/index.html",WStringKering = maeslant[0], LString = maeslant[1], WStringRot = rotterdam[0], WStringDor = dordrecht[0],)
 
 class ActionHandler(tornado.web.RequestHandler):
     def get(self):
