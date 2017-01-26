@@ -3,14 +3,19 @@ import db,api, time, datetime
 def GrabData(locatienaam, apidata):
     print("Getting data for "+locatienaam)
     try:
-        latestdata = db.SelectLastReadingFromDB()
+        latestdata = db.SelectLastReadingFromDB(locatienaam)
     except:
         print("Getting latest data failed for "+locatienaam)
     try:
         data = api.GetNAPLocation(locatienaam, apidata)
         print("Got API data")
-        waterstand = data['waarde']
-        tijd = data['meettijd']
+    except:
+        print("Api call failed for "+locatienaam)
+
+    waterstand = data['waarde']
+    tijd = data['meettijd']
+
+    try:
         print(locatienaam, tijd, latestdata[1])
         if int(tijd) != int(latestdata[1]):
             print("Posting data to DB")
@@ -20,8 +25,8 @@ def GrabData(locatienaam, apidata):
         else:
             print("Dubbele Waarde")
     except:
-        print("Api call failed for"+locatienaam)
-
+        print("Posting data DB failed for "+locatienaam)
+    print(' ')
 
 
 while True:

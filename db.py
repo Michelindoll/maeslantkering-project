@@ -7,7 +7,7 @@ def createSQLConnection():
 def WriteSensorDataToDB(WaterLevel, Unixtime, Location):
     connection = createSQLConnection()
     with connection.cursor() as cursor:
-        sql = "INSERT INTO sensordata (waterstand, tijd) VALUES ({},{})".format(WaterLevel, Unixtime)
+        sql = "INSERT INTO sensordata (waterstand, tijd, locatie) VALUES ({},{},'{}')".format(WaterLevel, Unixtime, Location)
         cursor.execute(sql)
     connection.commit()
 
@@ -19,10 +19,10 @@ def SelectSensorDataFromDB(Location):
         result = cursor.fetchall()
         return result
 
-def SelectLastReadingFromDB():
+def SelectLastReadingFromDB(Location):
     connection = createSQLConnection()
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        sql = "SELECT waterstand, tijd FROM sensordata ORDER BY tijd DESC LIMIT 1"
+        sql = "SELECT waterstand, tijd FROM sensordata WHERE locatie='{}' ORDER BY tijd DESC LIMIT 1".format(Location)
         cursor.execute(sql)
         result = cursor.fetchall()
         waterstand = result[0]['waterstand']
