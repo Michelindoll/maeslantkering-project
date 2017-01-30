@@ -74,17 +74,21 @@ if mode == 2:
     threading.Thread(target=heartbeatHandler).start()
     while True:
         while True:
-            meting = db.SelectLastReadingFromDB()
-            print("De huidige waterstand is %s cm onder of boven NAP" % meting)
-            if meting> 300:
+            meting = db.SelectLastReadingFromDB("Dordrecht")
+            meting2 = db.SelectLastReadingFromDB("Rotterdam")
+            print("De huidige waterstand is %s cm onder of boven NAP in Dordrecht" % (meting[0]))
+            print("De huidige waterstand is %s cm onder of boven NAP in Rotterdam" % (meting2[0]))
+            if meting[0] > 300 and meting2[0] > 300:
                 print('Waterstand overschreidt maximum, sluiting wordt in gang gezet.')
                 threading.Thread(DoorControl(1)).start()
                 break
             time.sleep(60)
         while True:
-            meting = db.SelectLastReadingFromDB()
-            print("De huidige waterstand is %s cm onder of boven NAP" % meting)
-            if meting < 250:
+            meting = db.SelectLastReadingFromDB("Dordrecht")
+            meting2 = db.SelectLastReadingFromDB("Rotterdam")
+            print("De huidige waterstand is %s cm onder of boven NAP in Dordrecht" % (meting[0]))
+            print("De huidige waterstand is %s cm onder of boven NAP in Rotterdam" % (meting2[0]))
+            if meting[0] < 250 and meting2[0] < 250:
                 print('Waterstand is gezakt tot een veilig punt, opening wordt in gang gezet.')
                 threading.Thread(DoorControl(0)).start()
                 break
