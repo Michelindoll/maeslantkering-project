@@ -1,4 +1,4 @@
-import time, zmq
+import time, zmq, aes
 import nlalert
 
 def SluitDeur():
@@ -13,6 +13,7 @@ socket.bind("tcp://*:5556")
 
 while True:
     message = socket.recv()
+    message = aes.decryptDataWithoutDecode(message)
     print("Received request: %s" % message)
     if message == b"1":
         SluitDeur()

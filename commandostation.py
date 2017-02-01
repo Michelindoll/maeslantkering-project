@@ -1,4 +1,4 @@
-import time, zmq, threading, db
+import time, zmq, threading, db, aes
 
 mode = 0
 
@@ -35,9 +35,9 @@ def heartbeatSender():
 def DoorControl(Action):
     #Verstuurt de actie naar de sluis
     if Action == 1:
-        message = b'1'
+        message = aes.encryptData(b'1')
     elif Action == 0:
-        message = b'0'
+        message = aes.encryptData(b'0')
     context = zmq.Context()
     print("Verbinden met sluisaansturing...")
     socket = context.socket(zmq.REQ)
